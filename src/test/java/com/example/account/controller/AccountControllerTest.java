@@ -1,8 +1,9 @@
 package com.example.account.controller;
 
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.account.dto.AccountDto;
 import com.example.account.dto.CreateAccount;
+import com.example.account.dto.DeleteAccount;
 import com.example.account.service.AccountService;
 import com.example.account.service.RedisTestService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,5 +60,30 @@ class AccountControllerTest {
 				.andExpect(jsonPath("$.accountNumber").value("1111111111"))
 				.andDo(print());
 	}
+	
+	@Test
+	void DeleteAccountTest() throws Exception {
+		//given
+		given(accountService.deleteAccount(anyLong(), anyString()))
+				.willReturn(AccountDto.builder()
+						.userId(1L)
+						.accountNumber("1111111111")
+						.registeredAt(LocalDateTime.now())
+						.unregisteredAt(LocalDateTime.now())
+						.build());
+		//when
+		//then
+		mockMvc.perform(delete("/account")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(
+						new DeleteAccount.Request(1L, "1000000000")
+				)))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.userId").value(1L))
+				.andExpect(jsonPath("$.accountNumber").value("1111111111"))
+				.andDo(print());
+	}
+	
+	
 
 }
