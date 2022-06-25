@@ -1,12 +1,18 @@
 package com.example.account.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.account.dto.AccountInfo;
 import com.example.account.dto.CreateAccount;
 import com.example.account.dto.DeleteAccount;
 import com.example.account.service.AccountService;
@@ -35,4 +41,15 @@ public class AccountController {
 				accountService.deleteAccount(
 						request.getUserId(), request.getAccountNumber()));
 	}
+	
+	@GetMapping("/account")
+	public List<AccountInfo> getAccountByUserId(
+			@RequestParam("user_id") Long userId) {
+		return accountService.getAccountByUserId(userId)
+				.stream().map(AccountDto -> AccountInfo.builder()
+						.accountNumber(AccountDto.getAccountNumber())
+						.balance(AccountDto.getBalance())
+						.build()).collect(Collectors.toList());
+	}
+
 }
