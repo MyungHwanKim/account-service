@@ -22,7 +22,7 @@ public class CreateAccount {
 		@Min(1)
 		private Long userId;
 		@NotNull
-		@Min(100)
+		@Min(0)
 		private Long initBalance;
 	}
 	
