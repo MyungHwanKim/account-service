@@ -40,7 +40,7 @@ class AccountControllerTest {
 	private ObjectMapper objectMapper;
 	
 	@Test
-	void CreateAccountTest() throws Exception {
+	void createAccountTest() throws Exception {
 		//given
 		given(accountService.createAccount(anyLong(), anyLong()))
 				.willReturn(AccountDto.builder()
@@ -63,7 +63,7 @@ class AccountControllerTest {
 	}
 	
 	@Test
-	void DeleteAccountTest() throws Exception {
+	void deleteAccountTest() throws Exception {
 		//given
 		given(accountService.deleteAccount(anyLong(), anyString()))
 				.willReturn(AccountDto.builder()
