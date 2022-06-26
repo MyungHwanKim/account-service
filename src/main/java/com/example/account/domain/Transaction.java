@@ -12,14 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.example.account.exception.AccountException;
-import com.example.account.type.AccountStatus;
-import com.example.account.type.ErrorCode;
+import com.example.account.type.TransactionResultType;
+import com.example.account.type.TransactionType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,32 +32,29 @@ import lombok.Setter;
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="account")
-public class Account {
+@Table(name="transaction")
+public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne
-	private AccountUser accountUser;
-	private String accountNumber;
+	@Enumerated(EnumType.STRING)
+	private TransactionType transactionType;
 	
 	@Enumerated(EnumType.STRING)
-	private AccountStatus accountStatus;
-	private Long balance;
+	private TransactionResultType tranactionResultType;
 	
-	private LocalDateTime registeredAt;
-	private LocalDateTime unregisteredAt;
+	@ManyToOne
+	private Account account;
+	
+	private Long amount;
+	private Long balanceSnapshot;
+	private String transactionId;
+	private LocalDateTime transactedAt;
 	
 	@CreatedDate
 	private LocalDateTime createdAt;
+	
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
-	
-	public void useBalance(Long amount) {
-		if (amount > balance) {
-			throw new AccountException(ErrorCode.EXCEED_THAN_BALANCE);
-		}
-		balance -= amount;
-	}
 }

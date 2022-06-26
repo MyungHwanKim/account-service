@@ -11,7 +11,10 @@ public enum ErrorCode {
 	USER_ACCOUNT_UNMATCH("사용자와 계좌 소유주가 일치하지 않습니다."),
 	ACCOUNT_ALREADY_UNREGISTERED("계좌가 이미 해지 상태입니다."),
 	BALANCE_NOT_ZERO("잔액이 남아있습니다."),
-	MAX_ACCOUNT_COUNT_10("최대 계좌 수는 10개 입니다.");
+	MAX_ACCOUNT_COUNT_10("최대 계좌 수는 10개 입니다."),
+	
+	EXCEED_THAN_BALANCE("거래금액이 잔액보다 큽니다."),
+	MIN_MAX_AMOUNT_UNMATCH("거래금액이 너무 작거나 큽니다.");
 	
 	private final String description;
 }
