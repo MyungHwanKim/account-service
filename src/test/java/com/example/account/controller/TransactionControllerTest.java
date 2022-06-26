@@ -32,9 +32,6 @@ class TransactionControllerTest {
 	@MockBean
 	private TransactionService transactionService;
 	
-	@MockBean
-	private RedisTestService redisTestService;
-	
 	@Autowired
 	private MockMvc mockMvc;
 	
