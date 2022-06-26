@@ -16,16 +16,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class UseBalance {
-	
+public class CancelBalance {
 	@Getter
 	@Setter
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Request {
-		@NotNull
-		@Min(1)
-		private Long userId;
+		@NotBlank
+		@Size(min = 32, max = 32)
+		private String transactionId;
 		
 		@NotBlank
 		@Size(min = 10, max = 10)
@@ -37,7 +36,6 @@ public class UseBalance {
 		private Long amount;
 	}
 	
-	
 	@Getter
 	@Setter
 	@NoArgsConstructor
@@ -45,7 +43,7 @@ public class UseBalance {
 	@Builder
 	public static class Response {
 		private String accountNumber;
-		private TransactionResultType transactionResult;
+		private TransactionResultType transactionResultType;
 		private String transactionId;
 		private Long amount;
 		private LocalDateTime transactedAt;
@@ -53,7 +51,7 @@ public class UseBalance {
 		public static Response from(TransactionDto transactionDto) {
 			return Response.builder()
 					.accountNumber(transactionDto.getAccountNumber())
-					.transactionResult(transactionDto.getTransactionResultType())
+					.transactionResultType(transactionDto.getTransactionResultType())
 					.transactionId(transactionDto.getTransactionId())
 					.amount(transactionDto.getAmount())
 					.transactedAt(transactionDto.getTransactedAt())

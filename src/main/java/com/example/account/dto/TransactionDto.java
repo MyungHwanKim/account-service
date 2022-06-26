@@ -2,8 +2,6 @@ package com.example.account.dto;
 
 import java.time.LocalDateTime;
 
-import org.springframework.transaction.support.TransactionTemplate;
-
 import com.example.account.domain.Transaction;
 import com.example.account.type.TransactionResultType;
 import com.example.account.type.TransactionType;
@@ -30,7 +28,7 @@ public class TransactionDto {
 		return TransactionDto.builder()
 				.accountNumber(transaction.getAccount().getAccountNumber())
 				.transactionType(transaction.getTransactionType())
-				.transactionResultType(transaction.getTranactionResultType())
+				.transactionResultType(transaction.getTransactionResultType())
 				.amount(transaction.getAmount())
 				.balanceSnapshot(transaction.getBalanceSnapshot())
 				.transactionId(transaction.getTransactionId())

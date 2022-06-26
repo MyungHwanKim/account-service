@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -42,7 +43,7 @@ public class Transaction {
 	private TransactionType transactionType;
 	
 	@Enumerated(EnumType.STRING)
-	private TransactionResultType tranactionResultType;
+	private TransactionResultType transactionResultType;
 	
 	@ManyToOne
 	private Account account;

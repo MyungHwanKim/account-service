@@ -19,6 +19,7 @@ import com.example.account.type.AccountStatus;
 import com.example.account.type.ErrorCode;
 import com.example.account.type.TransactionResultType;
 import com.example.account.type.TransactionType;
+import com.google.common.base.Objects;
 
 import lombok.RequiredArgsConstructor;
 
@@ -71,7 +72,7 @@ public class TransactionService {
 	{
 		return transactionRepository.save(Transaction.builder()
 				.transactionType(transactionType)
-				.tranactionResultType(transactionResultType)
+				.transactionResultType(transactionResultType)
 				.account(account)
 				.amount(amount)
 				.balanceSnapshot(account.getBalance())
@@ -85,6 +86,45 @@ public class TransactionService {
 				.orElseThrow(() -> new AccountException(ErrorCode.ACCOUNT_NOT_FOUND));
 		
 		saveSuccessUseTransaction(TransactionType.USE, 
+				TransactionResultType.FAIL, account, amount);
+	}
+	
+	@Transactional
+	public TransactionDto cancelBalance(String transactionId, String accountNumber, Long amount) {
+		Transaction transaction = transactionRepository.findByTransactionId(transactionId)
+				.orElseThrow(() -> new AccountException(ErrorCode.TRANSACTION_NOT_FOUND));
+		
+		Account account = accountRepository.findByAccountNumber(accountNumber)
+				.orElseThrow(() -> new AccountException(ErrorCode.ACCOUNT_NOT_FOUND));
+		
+		validateCancelBalance(transaction, account, amount);
+		
+		account.cancelBalance(amount);
+		
+		return TransactionDto.from(
+				saveSuccessUseTransaction(TransactionType.CANCEL, 
+						TransactionResultType.SUCCESS, account, amount));
+	}
+	
+	public void validateCancelBalance(Transaction transaction, Account account, Long amount) {
+		if(transaction.getAccount().getId() != account.getId()) {
+			throw new AccountException(ErrorCode.TRANSACTION_ACCOUNT_UNMATCH);
+		}
+		
+		if(!Objects.equal(transaction.getAmount(), amount)) {
+			throw new AccountException(ErrorCode.CANCEL_AMOUNT_TRANSACTION_AMOUNT_NUMATCH);
+		}
+		
+		if (transaction.getTransactedAt().isBefore(LocalDateTime.now().minusYears(1))) {
+			throw new AccountException(ErrorCode.AFTER_ONEYEAR_TRANSACTION);
+		}
+	}
+	
+	public void saveFailedCancelTransaction(String accountNumber, Long amount) {
+		Account account = accountRepository.findByAccountNumber(accountNumber)
+				.orElseThrow(() -> new AccountException(ErrorCode.ACCOUNT_NOT_FOUND));
+		
+		saveSuccessUseTransaction(TransactionType.CANCEL, 
 				TransactionResultType.FAIL, account, amount);
 	}
 }

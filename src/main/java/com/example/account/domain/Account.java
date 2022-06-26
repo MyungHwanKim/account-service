@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -61,5 +60,12 @@ public class Account {
 			throw new AccountException(ErrorCode.EXCEED_THAN_BALANCE);
 		}
 		balance -= amount;
+	}
+	
+	public void cancelBalance(Long amount) {
+		if (amount < 0) {
+			throw new AccountException(ErrorCode.INVALID_REQUEST);
+		}
+		balance += amount;
 	}
 }
