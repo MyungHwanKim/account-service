@@ -17,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.account.dto.CancelBalance;
 import com.example.account.dto.TransactionDto;
 import com.example.account.dto.UseBalance;
 import com.example.account.service.RedisTestService;
@@ -66,4 +67,32 @@ class TransactionControllerTest {
 		.andExpect(jsonPath("$.transactionId").value("transactionId"));
 	}
 
+	@Test
+	void cancelBalanceTest() throws Exception {
+		//given
+		given(transactionService.cancelBalance(anyString(), anyString(), anyLong()))
+				.willReturn(TransactionDto.builder()
+						.accountNumber("1000000010")
+						.transactionResultType(TransactionResultType.SUCCESS)
+						.amount(10000L)
+						.transactionId("transactionIdCancelfor1000000010")
+						.transactedAt(LocalDateTime.now())
+						.build());
+		
+		//when
+		//then
+		mockMvc.perform(post("/transaction/cancel")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(
+						new CancelBalance.Request(
+								"transactionIdCancelfor1000000010"
+								, "1000000010", 1000L)))
+				)
+		.andDo(print())
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.accountNumber").value("1000000010"))
+		.andExpect(jsonPath("$.transactionResultType").value("SUCCESS"))
+		.andExpect(jsonPath("$.amount").value(10000L))
+		.andExpect(jsonPath("$.transactionId").value("transactionIdCancelfor1000000010"));
+	}
 }
