@@ -75,7 +75,7 @@ class TransactionServiceTest {
 					.account(account)
 					.amount(1000L)
 					.balanceSnapshot(9000L)
-					.transactionId("transactionId")
+					.transactionId("transactionIdUsingFor1000000010a")
 					.build());
 		//when
 		TransactionDto transactionDto = transactionService.useBalance(1L, "1000000001", 1000L);
@@ -236,7 +236,7 @@ class TransactionServiceTest {
 				.account(account)
 				.amount(1000L)
 				.balanceSnapshot(9000L)
-				.transactionId("transactionId")
+				.transactionId("transactionIdUsingFor1000000010a")
 				.build());
 		
 		ArgumentCaptor<Transaction> captor = ArgumentCaptor.forClass(Transaction.class);
@@ -464,5 +464,61 @@ class TransactionServiceTest {
 		
 		//then
 		assertEquals(ErrorCode.AFTER_ONEYEAR_TRANSACTION, accountException.getErrorCode());
+	}
+	
+	@Test
+	@DisplayName("잔액 사용을 확인하는 경우 - 잔액 사용 확인 성공")
+	void confirmTransactionTest() {
+		//given
+		AccountUser choi = AccountUser.builder()
+				.id(1L)
+				.name("최웅")
+				.build();
+		Account account = Account.builder()
+				.id(1L)
+				.accountUser(choi)
+				.accountNumber("1000000010")
+				.accountStatus(AccountStatus.IN_USE)
+				.balance(10000L)
+				.build();
+		Transaction transaction = Transaction.builder()
+				.transactionType(TransactionType.USE)
+				.transactionResultType(TransactionResultType.SUCCESS)
+				.account(account)
+				.amount(1000L)
+				.balanceSnapshot(9000L)
+				.transactionId("transactionIdConfirmOf1000000010")
+				.transactedAt(LocalDateTime.now())
+				.build();
+		
+		given(transactionRepository.findByTransactionId(anyString()))
+			.willReturn(Optional.of(transaction));
+		
+		//when
+		TransactionDto transactionDto = 
+				transactionService.ConfirmTransaction(
+						"transactionIdConfirmOf1000000010");
+		
+		//then
+		assertEquals(TransactionType.USE, transactionDto.getTransactionType());
+		assertEquals(TransactionResultType.SUCCESS, transactionDto.getTransactionResultType());
+		assertEquals(1000L, transactionDto.getAmount());
+		assertEquals("transactionIdConfirmOf1000000010", transactionDto.getTransactionId());
+	}
+	
+	@Test
+	@DisplayName("거래 아이디에 해당하는 거래가 없는 경우 - 잔액 사용 확인 실패")
+	void confirmTransactionNotFoundTest() {
+		//given
+		given(transactionRepository.findByTransactionId(anyString()))
+				.willReturn(Optional.empty());
+		
+		//when
+		AccountException accountException = assertThrows(AccountException.class,
+				() -> transactionService.ConfirmTransaction(
+						"transactionIdCancelfor1000000010"));
+		
+		//then
+		assertEquals(ErrorCode.TRANSACTION_NOT_FOUND, accountException.getErrorCode());
 	}
 }
