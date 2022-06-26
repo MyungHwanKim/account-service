@@ -127,4 +127,10 @@ public class TransactionService {
 		saveSuccessUseTransaction(TransactionType.CANCEL, 
 				TransactionResultType.FAIL, account, amount);
 	}
+	
+	@Transactional
+	public TransactionDto ConfirmTransaction(String transactionId) {
+		return TransactionDto.from(transactionRepository.findByTransactionId(transactionId)
+				.orElseThrow(() -> new AccountException(ErrorCode.TRANSACTION_NOT_FOUND)));
+	}
 }

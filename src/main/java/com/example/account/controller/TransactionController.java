@@ -2,11 +2,15 @@ package com.example.account.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.account.dto.CancelBalance;
+import com.example.account.dto.ConfirmTransactionResponse;
 import com.example.account.dto.UseBalance;
 import com.example.account.exception.AccountException;
 import com.example.account.service.TransactionService;
@@ -44,5 +48,13 @@ public class TransactionController {
 					request.getAccountNumber(), request.getAmount());
 			throw e;
 		}
+	}
+	
+	@GetMapping("/transaction/{transactionId}")
+	public ConfirmTransactionResponse confirmTransaction(
+			@PathVariable String transactionId)
+	{
+		return ConfirmTransactionResponse.from(
+				transactionService.ConfirmTransaction(transactionId));
 	}
 }
