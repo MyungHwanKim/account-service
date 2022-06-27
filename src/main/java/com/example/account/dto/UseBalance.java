@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.example.account.aop.AccountLockIdInterface;
 import com.example.account.type.TransactionResultType;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class UseBalance {
 	@Setter
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class Request {
+	public static class Request implements AccountLockIdInterface{
 		@NotNull
 		@Min(1)
 		private Long userId;

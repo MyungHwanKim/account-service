@@ -21,7 +21,8 @@ public enum ErrorCode {
 	CANCEL_AMOUNT_TRANSACTION_AMOUNT_NUMATCH("거래금액과 취소금액이 일치하지 않습니다."),
 	AFTER_ONEYEAR_TRANSACTION("거래한 지 1년이 넘었습니다."),
 	
-	INTERNAL_SERVER_ERROR("내부 서버 오류가 발생했습니다.");
+	INTERNAL_SERVER_ERROR("내부 서버 오류가 발생했습니다."),
+	LOCK("현재 사용 중입니다.");
 	
 	private final String description;
 }

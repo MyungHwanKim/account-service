@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.account.dto.CancelBalance;
 import com.example.account.dto.TransactionDto;
 import com.example.account.dto.UseBalance;
-import com.example.account.service.RedisTestService;
 import com.example.account.service.TransactionService;
 import com.example.account.type.TransactionResultType;
 import com.example.account.type.TransactionType;
