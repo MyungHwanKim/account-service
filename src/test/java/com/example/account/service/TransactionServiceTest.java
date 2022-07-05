@@ -49,12 +49,12 @@ class TransactionServiceTest {
 	private TransactionService transactionService;
 	
 	@Test
-	@DisplayName("°èÁÂ ÀÜ¾×À» »ç¿ëÇÏ´Â °æ¿ì - °èÁÂ ÀÜ¾× »ç¿ë ¼º°ø")
+	@DisplayName("ê³„ì¢Œ ì”ì•¡ì„ ì‚¬ìš©í•˜ëŠ” ê²½ìš° - ê³„ì¢Œ ì”ì•¡ ì‚¬ìš© ì„±ê³µ")
 	void useBalanceTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -88,7 +88,7 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("»ç¿ëÀÚ°¡ ¾ø´Â °æ¿ì - ÀÜ¾× »ç¿ë ½ÇÆĞ")
+	@DisplayName("ì‚¬ìš©ìê°€ ì—†ëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì‹¤íŒ¨")
 	void userNotFoundTest() {
 		//given
 		given(accountUserRepository.findById(anyLong()))
@@ -103,12 +103,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ°¡ ¾ø´Â °æ¿ì - ÀÜ¾× »ç¿ë ½ÇÆĞ")
+	@DisplayName("ê³„ì¢Œê°€ ì—†ëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì‹¤íŒ¨")
 	void transactionAccountNotFoundTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -125,16 +125,16 @@ class TransactionServiceTest {
 	}
 
 	@Test
-	@DisplayName("»ç¿ëÀÚ¿Í °èÁÂ ¼ÒÀ¯ÁÖ°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì - ÀÜ¾× »ç¿ë ½ÇÆĞ")
+	@DisplayName("ì‚¬ìš©ìì™€ ê³„ì¢Œ ì†Œìœ ì£¼ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì‹¤íŒ¨")
 	void transactionAccountNotUserUnMatchTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(1L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		AccountUser guk = AccountUser.builder()
 				.id(2L)
-				.name("±¹¿¬¼ö")
+				.name("êµ­ì—°ìˆ˜")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -155,12 +155,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ°¡ ÀÌ¹Ì ÇØÁöÀÎ °æ¿ì - ÀÜ¾× »ç¿ë ½ÇÆĞ")
+	@DisplayName("ê³„ì¢Œê°€ ì´ë¯¸ í•´ì§€ì¸ ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì‹¤íŒ¨")
 	void transactionAccountAlreadyUnregisteredTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -182,12 +182,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°Å·¡±İ¾×ÀÌ ÀÜ¾×º¸´Ù Å« °æ¿ì - ÀÜ¾× »ç¿ë ½ÇÆĞ")
+	@DisplayName("ê±°ë˜ê¸ˆì•¡ì´ ì”ì•¡ë³´ë‹¤ í° ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì‹¤íŒ¨")
 	void exceedThanBalanceTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -212,12 +212,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("½ÇÆĞ °Å·¡°¡ ÀúÀå ¼º°øÀÎ °æ¿ì")
+	@DisplayName("ì‹¤íŒ¨ ê±°ë˜ê°€ ì €ì¥ ì„±ê³µì¸ ê²½ìš°")
 	void saveFailedUseTransaction() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		Account account = Account.builder()
@@ -252,12 +252,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ ÀÜ¾×À» »ç¿ëÇÏ´Â °æ¿ì - °èÁÂ ÀÜ¾× »ç¿ë Ãë¼Ò ¼º°ø")
+	@DisplayName("ê³„ì¢Œ ì”ì•¡ì„ ì‚¬ìš©í•˜ëŠ” ê²½ìš° - ê³„ì¢Œ ì”ì•¡ ì‚¬ìš© ì·¨ì†Œ ì„±ê³µ")
 	void cancelBalanceTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		Account account = Account.builder()
@@ -309,7 +309,7 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°Å·¡ ¾ÆÀÌµğ¿¡ ÇØ´çÇÏ´Â °Å·¡°¡ ¾ø´Â °æ¿ì - ÀÜ¾× »ç¿ë Ãë¼Ò ½ÇÆĞ")
+	@DisplayName("ê±°ë˜ ì•„ì´ë””ì— í•´ë‹¹í•˜ëŠ” ê±°ë˜ê°€ ì—†ëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì·¨ì†Œ ì‹¤íŒ¨")
 	void cancelTransactionNotFoundTest() {
 		//given
 		given(transactionRepository.findByTransactionId(anyString()))
@@ -325,7 +325,7 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ°¡ ¾ø´Â °æ¿ì - ÀÜ¾× »ç¿ë ½ÇÆĞ")
+	@DisplayName("ê³„ì¢Œê°€ ì—†ëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì‹¤íŒ¨")
 	void cancelTransactionAccountNotFoundTest() {
 		//given		
 		given(transactionRepository.findByTransactionId(anyString()))
@@ -343,12 +343,12 @@ class TransactionServiceTest {
 	}
 
 	@Test
-	@DisplayName("°Å·¡¿Í °èÁÂ ¼ÒÀ¯ÁÖ°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì - ÀÜ¾× »ç¿ë Ãë¼Ò ½ÇÆĞ")
+	@DisplayName("ê±°ë˜ì™€ ê³„ì¢Œ ì†Œìœ ì£¼ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì·¨ì†Œ ì‹¤íŒ¨")
 	void cancelTransactionAccountNotUserUnMatchTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(1L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		Account account = Account.builder()
 				.id(1L)
@@ -389,12 +389,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°Å·¡±İ¾×°ú °Å·¡ Ãë¼Ò ±İ¾×ÀÌ ´Ù¸¥ °æ¿ì - ÀÜ¾× »ç¿ë Ãë¼Ò ½ÇÆĞ")
+	@DisplayName("ê±°ë˜ê¸ˆì•¡ê³¼ ê±°ë˜ ì·¨ì†Œ ê¸ˆì•¡ì´ ë‹¤ë¥¸ ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì·¨ì†Œ ì‹¤íŒ¨")
 	void CancelAmountTransactionAmountTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(1L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		Account account = Account.builder()
 				.id(1L)
@@ -428,12 +428,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("ÃÖ±Ù °Å·¡ ±â°£ÀÌ 1³âÀÌ ³ÑÀº °æ¿ì - ÀÜ¾× »ç¿ë Ãë¼Ò ½ÇÆĞ")
+	@DisplayName("ìµœê·¼ ê±°ë˜ ê¸°ê°„ì´ 1ë…„ì´ ë„˜ì€ ê²½ìš° - ì”ì•¡ ì‚¬ìš© ì·¨ì†Œ ì‹¤íŒ¨")
 	void CancelAfterOneYearTransactionTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(1L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		Account account = Account.builder()
 				.id(1L)
@@ -467,12 +467,12 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("ÀÜ¾× »ç¿ëÀ» È®ÀÎÇÏ´Â °æ¿ì - ÀÜ¾× »ç¿ë È®ÀÎ ¼º°ø")
+	@DisplayName("ì”ì•¡ ì‚¬ìš©ì„ í™•ì¸í•˜ëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© í™•ì¸ ì„±ê³µ")
 	void confirmTransactionTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(1L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		Account account = Account.builder()
 				.id(1L)
@@ -507,7 +507,7 @@ class TransactionServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°Å·¡ ¾ÆÀÌµğ¿¡ ÇØ´çÇÏ´Â °Å·¡°¡ ¾ø´Â °æ¿ì - ÀÜ¾× »ç¿ë È®ÀÎ ½ÇÆĞ")
+	@DisplayName("ê±°ë˜ ì•„ì´ë””ì— í•´ë‹¹í•˜ëŠ” ê±°ë˜ê°€ ì—†ëŠ” ê²½ìš° - ì”ì•¡ ì‚¬ìš© í™•ì¸ ì‹¤íŒ¨")
 	void confirmTransactionNotFoundTest() {
 		//given
 		given(transactionRepository.findByTransactionId(anyString()))

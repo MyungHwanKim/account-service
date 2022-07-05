@@ -1,11 +1,11 @@
 insert into account_user(id, name, created_at, updated_at)
-values (1, 'ÃÖ¿õ', now(), now());
+values (1, 'ìµœì›…', now(), now());
 
 insert into account_user(id, name, created_at, updated_at)
-values (2, '±¹¿¬¼ö', now(), now());
+values (2, 'êµ­ì—°ìˆ˜', now(), now());
 
 insert into account_user(id, name, created_at, updated_at)
-values (3, '±¸¿õ', now(), now());
+values (3, 'êµ¬ì›…', now(), now());
 
 insert into account_user(id, name, created_at, updated_at)
-values (4, '±èÀ¯¹Ì', now(), now());
+values (4, 'ê¹€ìœ ë¯¸', now(), now());

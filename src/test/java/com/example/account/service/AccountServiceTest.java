@@ -40,12 +40,12 @@ class AccountServiceTest {
 	private AccountService accountService;
 	
 	@Test
-	@DisplayName("ÀÌÀüÀÇ ´Ù¸¥ °èÁÂ°¡ ÀÖÀ» °æ¿ì - °èÁÂ »ı¼º ¼º°ø")
+	@DisplayName("ì´ì „ì˜ ë‹¤ë¥¸ ê³„ì¢Œê°€ ìˆì„ ê²½ìš° - ê³„ì¢Œ ìƒì„± ì„±ê³µ")
 	void createAccountTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -72,12 +72,12 @@ class AccountServiceTest {
 	
 	
 	@Test
-	@DisplayName("Ã³À½ °èÁÂ¸¦ ¸¸µå´Â °æ¿ì - °èÁÂ »ı¼º ¼º°ø")
+	@DisplayName("ì²˜ìŒ ê³„ì¢Œë¥¼ ë§Œë“œëŠ” ê²½ìš° - ê³„ì¢Œ ìƒì„± ì„±ê³µ")
 	void createFirstAccountTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -98,7 +98,7 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("»ç¿ëÀÚ°¡ ¾ø´Â °æ¿ì - °èÁÂ »ı¼º ½ÇÆĞ")
+	@DisplayName("ì‚¬ìš©ìê°€ ì—†ëŠ” ê²½ìš° - ê³„ì¢Œ ìƒì„± ì‹¤íŒ¨")
 	void userNotFoundTest() {
 		//given
 		given(accountUserRepository.findById(anyLong()))
@@ -113,12 +113,12 @@ class AccountServiceTest {
 	}
 
 	@Test
-	@DisplayName("°èÁÂ ¼ö°¡ 10ÀÎ °æ¿ì - °èÁÂ »ı¼º ½ÇÆĞ")
+	@DisplayName("ê³„ì¢Œ ìˆ˜ê°€ 10ì¸ ê²½ìš° - ê³„ì¢Œ ìƒì„± ì‹¤íŒ¨")
 	void max_Account_Count_10_Test() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		given(accountUserRepository.findById(anyLong()))
 		.willReturn(Optional.of(choi));
@@ -134,12 +134,12 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ¸¦ ÇØÁöÇÏ´Â °æ¿ì - °èÁÂ ÇØÁö ¼º°ø")
+	@DisplayName("ê³„ì¢Œë¥¼ í•´ì§€í•˜ëŠ” ê²½ìš° - ê³„ì¢Œ í•´ì§€ ì„±ê³µ")
 	void deleteAccountTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -162,7 +162,7 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("»ç¿ëÀÚ°¡ ¾ø´Â °æ¿ì - °èÁÂ ÇØÁö ½ÇÆĞ")
+	@DisplayName("ì‚¬ìš©ìê°€ ì—†ëŠ” ê²½ìš° - ê³„ì¢Œ í•´ì§€ ì‹¤íŒ¨")
 	void deleteUserNotFoundTest() {
 		//given
 		given(accountUserRepository.findById(anyLong()))
@@ -177,12 +177,12 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ°¡ ¾ø´Â °æ¿ì - °èÁÂ ÇØÁö ½ÇÆĞ")
+	@DisplayName("ê³„ì¢Œê°€ ì—†ëŠ” ê²½ìš° - ê³„ì¢Œ í•´ì§€ ì‹¤íŒ¨")
 	void deleteAccountNotFoundTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -199,16 +199,16 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("»ç¿ëÀÚ¿Í °èÁÂ ¼ÒÀ¯ÁÖ°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì - °èÁÂ ÇØÁö ½ÇÆĞ")
+	@DisplayName("ì‚¬ìš©ìì™€ ê³„ì¢Œ ì†Œìœ ì£¼ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ” ê²½ìš° - ê³„ì¢Œ í•´ì§€ ì‹¤íŒ¨")
 	void deleteAccountNotUserUnMatchTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(1L)
-				.name("ÃÖ¿õ")
+				.name("ï¿½ìµœì›…")
 				.build();
 		AccountUser guk = AccountUser.builder()
 				.id(2L)
-				.name("±¹¿¬¼ö")
+				.name("êµ­ì—°ìˆ˜")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -229,12 +229,12 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ°¡ ÀÌ¹Ì ÇØÁöÀÎ °æ¿ì - °èÁÂ ÇØÁö ½ÇÆĞ")
+	@DisplayName("ê³„ì¢Œê°€ ì´ë¯¸ í•´ì§€ì¸ ê²½ìš° - ê³„ì¢Œ í•´ì§€ ì‹¤íŒ¨")
 	void deleteAccountAlreadyUnregisteredTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -256,12 +256,12 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("ÀÜ¾×ÀÌ ÀÖ´Â °æ¿ì - °èÁÂ ÇØÁö ½ÇÆĞ")
+	@DisplayName("ì”ì•¡ì´ ìˆëŠ” ê²½ìš° - ê³„ì¢Œ í•´ì§€ ì‹¤íŒ¨")
 	void deleteAccountBalanceNotZeroTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		
 		given(accountUserRepository.findById(anyLong()))
@@ -282,12 +282,12 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("°èÁÂ¸¦ È®ÀÎÇÏ´Â °æ¿ì - °èÁÂ È®ÀÎ ¼º°ø")
+	@DisplayName("ê³„ì¢Œë¥¼ í™•ì¸í•˜ëŠ” ê²½ìš° - ê³„ì¢Œ í™•ì¸ ì„±ê³µ")
 	void getAccountByUserIdTest() {
 		//given
 		AccountUser choi = AccountUser.builder()
 				.id(2L)
-				.name("ÃÖ¿õ")
+				.name("ìµœì›…")
 				.build();
 		List<Account> accounts = Arrays.asList(
 					Account.builder()
@@ -333,7 +333,7 @@ class AccountServiceTest {
 	}
 	
 	@Test
-	@DisplayName("»ç¿ëÀÚ°¡ ¾ø´Â °æ¿ì - °èÁÂ È®ÀÎ ½ÇÆĞ")
+	@DisplayName("ì‚¬ìš©ìê°€ ì—†ëŠ” ê²½ìš° - ê³„ì¢Œ í™•ì¸ ì‹¤íŒ¨")
 	void notUserGetAccountByUserIdTest() {
 		//given
 		given(accountUserRepository.findById(anyLong()))
