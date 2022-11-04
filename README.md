@@ -1,4 +1,4 @@
-# [account-service]
+# account-service
 >JAVA와 Spring Boot를 활용한 계좌 관리 시스템 API
 
 ### 📜 주요 기능
